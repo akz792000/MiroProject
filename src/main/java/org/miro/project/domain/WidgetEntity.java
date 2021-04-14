@@ -1,23 +1,41 @@
 package org.miro.project.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
+/**
+ * @author Ali Karimizandi
+ * @since 2021
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 @Entity
+@Table(indexes = {
+    @Index(columnList = "zIndex"),
+})
 public class WidgetEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long width;
+    private int x;
 
-    private Long height;
+    private int y;
 
-    private Long zIndex;
+    private int width;
+
+    private int height;
+
+    private int zIndex;
+
+    private Date lastModificationDate;
 
 }

@@ -3,7 +3,6 @@ package org.miro.project.repository;
 import org.miro.project.domain.WidgetEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -13,6 +12,16 @@ import java.util.Optional;
  * @since 2021
  */
 @Repository
-public interface WidgetRepository extends CrudRepository<WidgetEntity, Long>, WidgetCustomRepository {
+public interface WidgetCustomRepository {
+
+    Page<WidgetEntity> getAll(Pageable pageable);
+
+    Optional<WidgetEntity> getById(Long var1);
+
+    WidgetEntity persist(WidgetEntity entity);
+
+    void merge(WidgetEntity entity);
+
+    void removeById(Long id);
 
 }
