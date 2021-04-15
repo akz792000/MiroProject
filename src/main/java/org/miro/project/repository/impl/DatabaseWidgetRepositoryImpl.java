@@ -47,7 +47,17 @@ public class DatabaseWidgetRepositoryImpl implements WidgetRepository {
 
     @Override
     public void merge(WidgetEntity entity) {
-        entityManager.merge(entity);
+        Optional<WidgetEntity> optional = getById(entity.getId());
+        if (optional.isPresent()) {
+            WidgetEntity widgetEntity = optional.get();
+            widgetEntity.setX(entity.getX());
+            widgetEntity.setY(entity.getY());
+            widgetEntity.setHeight(entity.getHeight());
+            widgetEntity.setWidth(entity.getWidth());
+            widgetEntity.setLastModificationDate(entity.getLastModificationDate());
+            widgetEntity.setZIndex(entity.getZIndex());
+            entityManager.merge(entity);
+        }
     }
 
     @Override

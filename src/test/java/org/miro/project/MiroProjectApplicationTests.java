@@ -78,8 +78,9 @@ public class MiroProjectApplicationTests {
         this.restTemplate.put(getUrl() + "/merge", entity);
     }
 
+    //@Disabled
     @DisplayName("Base persist")
-    @Order(0)
+    @Order(1)
     @Test
     public void persist() {
         // persist
@@ -92,23 +93,7 @@ public class MiroProjectApplicationTests {
         assertThat(entity.getId()).isEqualTo(1L);
     }
 
-    @DisplayName("Base Merge")
-    @Order(1)
-    @Test
-    public void merge() {
-        // get by id
-        WidgetEntity entity = getById(1L);
-
-        // merge
-        entity.setHeight(200);
-        entity.setWidth(200);
-        merge(entity);
-
-        // get by id
-        entity = getById(1L);
-        assertThat(entity.getHeight()).isEqualTo(200L);
-    }
-
+    //@Disabled
     @DisplayName("Base getById")
     @Order(2)
     @Test
@@ -122,8 +107,26 @@ public class MiroProjectApplicationTests {
         assertThat(entity).isNotNull().is(condition);
     }
 
-    @DisplayName("Base removeById")
+    //@Disabled
+    @DisplayName("Base Merge")
     @Order(3)
+    @Test
+    public void merge() {
+        // get by id
+        WidgetEntity entity = getById(1L);
+
+        // merge
+        entity.setHeight(200);
+        merge(entity);
+
+        // get by id
+        entity = getById(1L);
+        assertThat(entity.getHeight()).isEqualTo(200L);
+    }
+
+    //@Disabled
+    @DisplayName("Base removeById")
+    @Order(4)
     @Test
     public void removeById() {
         // remove
@@ -136,8 +139,9 @@ public class MiroProjectApplicationTests {
         assertThat(entity).isNull();
     }
 
+    //@Disabled
     @DisplayName("Base findAll")
-    @Order(4)
+    @Order(5)
     @Test
     public void findAll() {
         // save 10 items
@@ -155,8 +159,9 @@ public class MiroProjectApplicationTests {
         assertThat(entities).size().isEqualTo(10);
     }
 
+    //@Disabled
     @DisplayName("Middle insert")
-    @Order(5)
+    @Order(6)
     @Test
     public void middleInsert() {
         WidgetEntity entity;

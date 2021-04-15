@@ -40,17 +40,7 @@ public class WidgetService {
     }
 
     public void merge(WidgetEntity entity) {
-        Optional<WidgetEntity> optional = repository.getById(entity.getId());
-        if (optional.isPresent()) {
-            WidgetEntity widgetEntity = optional.get();
-            widgetEntity.setX(entity.getX());
-            widgetEntity.setY(entity.getY());
-            widgetEntity.setHeight(entity.getHeight());
-            widgetEntity.setWidth(entity.getWidth());
-            widgetEntity.setLastModificationDate(entity.getLastModificationDate());
-            widgetEntity.setZIndex(entity.getZIndex());
-            repository.merge(entity);
-        }
+        repository.merge(entity);
     }
 
     public void removeById(Long id) {
