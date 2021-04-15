@@ -2,7 +2,7 @@ package org.miro.project.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.miro.project.domain.WidgetEntity;
-import org.miro.project.repository.WidgetCustomRepository;
+import org.miro.project.repository.WidgetRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -23,11 +23,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Repository
 @Transactional
-public class WidgetRepositoryImpl implements WidgetCustomRepository {
+public class WidgetRepositoryImpl implements WidgetRepository {
 
     private final ApplicationContext applicationContext;
 
-    private WidgetCustomRepository repository;
+    private WidgetRepository repository;
 
     @Value("${application.use-database}")
     private boolean useDatabase;
