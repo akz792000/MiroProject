@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 
 ;
@@ -64,5 +65,14 @@ public class WidgetRepositoryImpl implements WidgetRepository {
         repository.removeById(id);
     }
 
+    @Override
+    public void removeAll() {
+        repository.removeAll();
+    }
+
+    @Override
+    public List<WidgetEntity> findInRegion(WidgetEntity entity) {
+        return repository.findInRegion(entity);
+    }
 
 }

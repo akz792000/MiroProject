@@ -176,4 +176,66 @@ public class MiroProjectApplicationTests {
         assertThat(entities).size().isEqualTo(11);
     }
 
+    //@Disabled
+    @DisplayName("Remove all")
+    @Order(7)
+    @Test
+    public void removeAll() {
+        // remove all
+        this.restTemplate.delete(getUrl() + "/removeAll");
+
+        // check if all were removed
+        List<WidgetEntity> entities = getAll();
+        assertThat(entities).size().isEqualTo(0);
+    }
+
+    //@Disabled
+    @DisplayName("Find in region")
+    @Order(8)
+    @Test
+    public void findInRegion() {
+        WidgetEntity entity;
+
+        // first
+        entity = WidgetEntity.builder()
+                .x(0)
+                .y(0)
+                .height(100)
+                .width(100)
+                .build();
+        persist(entity);
+
+        // second
+        entity = WidgetEntity.builder()
+                .x(0)
+                .y(50)
+                .height(100)
+                .width(100)
+                .build();
+        persist(entity);
+
+        // third
+        entity = WidgetEntity.builder()
+                .x(50)
+                .y(50)
+                .height(100)
+                .width(100)
+                .build();
+        persist(entity);
+
+        // region
+        WidgetEntity region = WidgetEntity.builder()
+                .x(0)
+                .y(0)
+                .height(150)
+                .width(100)
+                .build();
+
+        // get
+        HttpEntity<WidgetEntity> httpEntity = new HttpEntity<>(region);
+        ResponseEntity<WidgetEntity[]> response = this.restTemplate.postForEntity(getUrl() + "/findInRegion", httpEntity, WidgetEntity[].class);
+        List<WidgetEntity> list = Arrays.asList(response.getBody());
+        assertThat(list).size().isEqualTo(2);
+    }
+
 }

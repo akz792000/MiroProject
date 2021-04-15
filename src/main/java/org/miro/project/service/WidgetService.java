@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,6 +46,14 @@ public class WidgetService {
 
     public void removeById(Long id) {
         repository.removeById(id);
+    }
+
+    public void removeAll() {
+        repository.removeAll();
+    }
+
+    public List<WidgetEntity> findInRegion(WidgetEntity entity) {
+        return repository.findInRegion(entity);
     }
 
 }

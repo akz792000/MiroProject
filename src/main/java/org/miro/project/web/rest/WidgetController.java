@@ -55,4 +55,19 @@ public class WidgetController {
         service.removeById(id);
     }
 
+    /*
+     * this method implements extra just for test
+     */
+    @DeleteMapping(value = "/removeAll")
+    public void removeAll() {
+        log.info("Deleting all widget details from the database.");
+        service.removeAll();
+    }
+
+    @PostMapping(value = "/findInRegion")
+    public List<WidgetEntity> findInRegion(@RequestBody @Valid WidgetEntity region) {
+        log.info("Getting widget details from the database in the requested region.");
+        return service.findInRegion(region);
+    }
+
 }

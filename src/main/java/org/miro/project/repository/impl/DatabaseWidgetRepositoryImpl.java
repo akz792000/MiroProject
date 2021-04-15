@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,22 @@ public class DatabaseWidgetRepositoryImpl implements WidgetRepository {
         Assert.notNull(id, "The given id must not be null!");
         WidgetEntity widgetEntity = this.entityManager.find(WidgetEntity.class, id);
         this.entityManager.remove(widgetEntity);
+    }
+
+    @Override
+    public void removeAll() {
+        Query query = entityManager.createQuery("delete from WidgetEntity");
+        query.executeUpdate();
+    }
+
+    @Override
+    public List<WidgetEntity> findInRegion(WidgetEntity entity) {
+        return entityManager.createQuery("select U from WidgetEntity U where U.x >= ?1 and U.y >= ?2 and (U.height + U.y) <= ?3 and (U.width + U.x) <= ?4")
+                .setParameter(1, entity.getX())
+                .setParameter(2, entity.getY())
+                .setParameter(3, entity.getHeight() + entity.getY())
+                .setParameter(4, entity.getWidth() + entity.getX())
+                .getResultList();
     }
 
 }

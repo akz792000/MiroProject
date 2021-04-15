@@ -62,4 +62,18 @@ public class InMemoryWidgetRepositoryImpl implements WidgetRepository {
     public void removeById(Long id) {
         items.removeIf((e) -> e.getId().equals(id));
     }
+
+    @Override
+    public void removeAll() {
+        items = Collections.synchronizedSortedSet(new TreeSet<>());
+    }
+
+    @Override
+    public List<WidgetEntity> findInRegion(WidgetEntity entity) {
+        return items.stream().filter((e) -> e.getX() >= entity.getX()
+                && e.getY() >= entity.getY()
+                && (e.getHeight() + e.getY()) <= (entity.getHeight() + entity.getY())
+                && (e.getWidth() + e.getX()) <= (entity.getWidth() + entity.getX())).collect(Collectors.toList());
+    }
+
 }
