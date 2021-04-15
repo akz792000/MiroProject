@@ -2,7 +2,7 @@ package org.miro.project.service;
 
 import lombok.RequiredArgsConstructor;
 import org.miro.project.domain.WidgetEntity;
-import org.miro.project.repository.WidgetRepository;
+import org.miro.project.repository.WidgetCustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 public class WidgetService {
 
-    private final WidgetRepository repository;
+    private final WidgetCustomRepository repository;
 
     public Page<WidgetEntity> getAll(int page, int pageSize) {
         Assert.isTrue(pageSize <= 500, "Page size should be equal or less than 500");

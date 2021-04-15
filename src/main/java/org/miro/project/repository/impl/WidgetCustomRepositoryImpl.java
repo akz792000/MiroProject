@@ -17,7 +17,6 @@ import java.util.Optional;
  * @since 2021
  */
 @AllArgsConstructor
-@Repository
 @Transactional
 public class WidgetCustomRepositoryImpl implements WidgetCustomRepository {
 
