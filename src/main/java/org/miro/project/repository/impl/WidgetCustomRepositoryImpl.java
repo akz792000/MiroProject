@@ -23,6 +23,7 @@ public class WidgetCustomRepositoryImpl implements WidgetCustomRepository {
 
     private final EntityManager entityManager;
 
+    @Override
     public Page<WidgetEntity> getAll(Pageable pageable) {
         List<WidgetEntity> entities = entityManager.createQuery("select U from WidgetEntity U order by U.zIndex")
                 .setFirstResult(pageable.getPageNumber())
@@ -31,16 +32,19 @@ public class WidgetCustomRepositoryImpl implements WidgetCustomRepository {
         return new PageImpl<>(entities, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()), entities.size());
     }
 
+    @Override
     public Optional<WidgetEntity> getById(Long id) {
         WidgetEntity widgetEntity = entityManager.find(WidgetEntity.class, id);
         return widgetEntity == null ? Optional.empty() : Optional.of(widgetEntity);
     }
 
+    @Override
     public WidgetEntity persist(WidgetEntity entity) {
         entityManager.persist(entity);
         return entity;
     }
 
+    @Override
     public void merge(WidgetEntity entity) {
         entityManager.merge(entity);
     }
@@ -51,4 +55,5 @@ public class WidgetCustomRepositoryImpl implements WidgetCustomRepository {
         WidgetEntity widgetEntity = this.entityManager.find(WidgetEntity.class, id);
         this.entityManager.remove(widgetEntity);
     }
+
 }

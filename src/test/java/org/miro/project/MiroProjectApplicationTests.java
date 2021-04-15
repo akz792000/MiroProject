@@ -46,12 +46,12 @@ public class MiroProjectApplicationTests {
         return response.getBody();
     }
 
-    public List<WidgetEntity> getAll() {
+    public List<WidgetEntity> getAll(int page, int pageSize) {
         // set uri
         Map<String, Object> uriParam = new HashMap<>();
-        uriParam.put("page", 1);
+        uriParam.put("page", page);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getUrl() + "/getAll/{page}")
-                .queryParam("pageSize", 10);
+                .queryParam("pageSize", pageSize);
         String url = builder.build(uriParam).toString();
 
         // send request
@@ -62,6 +62,10 @@ public class MiroProjectApplicationTests {
                 WidgetEntity[].class,
                 uriParam);
         return Arrays.asList(response.getBody());
+    }
+
+    public List<WidgetEntity> getAll() {
+        return getAll(1, 10);
     }
 
     public WidgetEntity persist(WidgetEntity entity) {
@@ -89,21 +93,24 @@ public class MiroProjectApplicationTests {
     }
 
     @DisplayName("Base Merge")
-    @Order(0)
+    @Order(1)
     @Test
     public void merge() {
-        // persist
-        WidgetEntity entity = persist(WidgetEntity.builder()
-                .height(100)
-                .width(100)
-                .zIndex(1)
-                .lastModificationDate(new Date())
-                .build());
-        assertThat(entity.getId()).isEqualTo(1L);
+        // get by id
+        WidgetEntity entity = getById(1L);
+
+        // merge
+        entity.setHeight(200);
+        entity.setWidth(200);
+        merge(entity);
+
+        // get by id
+        entity = getById(1L);
+        assertThat(entity.getHeight()).isEqualTo(200L);
     }
 
     @DisplayName("Base getById")
-    @Order(1)
+    @Order(2)
     @Test
     public void getById() {
         // get by id
@@ -116,7 +123,7 @@ public class MiroProjectApplicationTests {
     }
 
     @DisplayName("Base removeById")
-    @Order(2)
+    @Order(3)
     @Test
     public void removeById() {
         // remove
@@ -130,7 +137,7 @@ public class MiroProjectApplicationTests {
     }
 
     @DisplayName("Base findAll")
-    @Order(3)
+    @Order(4)
     @Test
     public void findAll() {
         // save 10 items
@@ -149,24 +156,19 @@ public class MiroProjectApplicationTests {
     }
 
     @DisplayName("Middle insert")
-    @Order(4)
+    @Order(5)
     @Test
     public void middleInsert() {
         WidgetEntity entity;
-        // persist
-        persist(WidgetEntity.builder().zIndex(1).build());
-        persist(WidgetEntity.builder().zIndex(2).build());
-        persist(WidgetEntity.builder().zIndex(3).build());
 
         // persist
         entity = WidgetEntity.builder().zIndex(2).build();
         persist(entity);
 
         // set uri
-        List<WidgetEntity> entities = getAll();
+        List<WidgetEntity> entities = getAll(1, 20);
         entities.forEach((e) -> log.info(String.valueOf(e.getZIndex())));
-
-        assertThat(entities).size().isEqualTo(4);
+        assertThat(entities).size().isEqualTo(11);
     }
 
 }

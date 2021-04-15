@@ -18,9 +18,9 @@ import java.util.Date;
 @Data
 @Entity
 @Table(indexes = {
-    @Index(columnList = "zIndex"),
+        @Index(columnList = "zIndex"),
 })
-public class WidgetEntity {
+public class WidgetEntity implements Comparable<WidgetEntity> {
 
     @Id
     @GeneratedValue
@@ -38,4 +38,8 @@ public class WidgetEntity {
 
     private Date lastModificationDate;
 
+    @Override
+    public int compareTo(WidgetEntity o) {
+        return this.zIndex > o.zIndex? 1 : -1;
+    }
 }
