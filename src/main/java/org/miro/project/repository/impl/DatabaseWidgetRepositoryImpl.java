@@ -2,9 +2,11 @@ package org.miro.project.repository.impl;
 
 import lombok.AllArgsConstructor;
 import org.miro.project.domain.WidgetEntity;
-import org.miro.project.repository.WidgetCustomRepository;
-import org.springframework.data.domain.*;
-import org.springframework.stereotype.Repository;
+import org.miro.project.repository.WidgetRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -18,7 +20,7 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 @Transactional
-public class WidgetCustomRepositoryImpl implements WidgetCustomRepository {
+public class DatabaseWidgetRepositoryImpl implements WidgetRepository {
 
     private final EntityManager entityManager;
 

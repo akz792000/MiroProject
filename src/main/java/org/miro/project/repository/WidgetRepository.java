@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author Ali Karimizandi
  * @since 2021
  */
-public interface WidgetCustomRepository {
+public interface WidgetRepository {
 
     Page<WidgetEntity> getAll(Pageable pageable);
 

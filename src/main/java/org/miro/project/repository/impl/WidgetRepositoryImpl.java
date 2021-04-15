@@ -35,8 +35,8 @@ public class WidgetRepositoryImpl implements WidgetCustomRepository {
     @PostConstruct
     public void init() {
         AutowireCapableBeanFactory autowireCapableBeanFactory = applicationContext.getAutowireCapableBeanFactory();
-        repository = useDatabase ? autowireCapableBeanFactory.createBean(WidgetCustomRepositoryImpl.class)
-                : autowireCapableBeanFactory.createBean(InMemoryWidgetCustomRepositoryImpl.class);
+        repository = useDatabase ? autowireCapableBeanFactory.createBean(DatabaseWidgetRepositoryImpl.class)
+                : autowireCapableBeanFactory.createBean(InMemoryWidgetRepositoryImpl.class);
     }
 
     @Override

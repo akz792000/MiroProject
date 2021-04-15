@@ -1,7 +1,7 @@
 package org.miro.project.repository.impl;
 
 import org.miro.project.domain.WidgetEntity;
-import org.miro.project.repository.WidgetCustomRepository;
+import org.miro.project.repository.WidgetRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Ali Karimizandi
  * @since 2021
  */
-public class InMemoryWidgetCustomRepositoryImpl implements WidgetCustomRepository {
+public class InMemoryWidgetRepositoryImpl implements WidgetRepository {
 
     private SortedSet<WidgetEntity> items = Collections.synchronizedSortedSet(new TreeSet<>());
 
